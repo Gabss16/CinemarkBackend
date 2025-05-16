@@ -19,13 +19,16 @@ res.json(costumers)
  
 //UPDATE
 costumersController.updateCostumers = async (req, res) => {
+//encriptar contraseña
+const passwordHash = await bcryptjs.hash(password, 10)
+
    //  Solicito todos los valores
     const {name, email, password, telephone, adress, dui } = req.body;
  
     await costumersModel.findByIdAndUpdate(req.params.id,{
        name,
        email,
-       password,
+       password: passwordHash,
        telephone,
        adress,
        dui
