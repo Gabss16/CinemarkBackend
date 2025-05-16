@@ -43,6 +43,26 @@ moviesController.createMovies = async (req, res) => {
     await newBrand.save()
     res.json({ message : "movies saved"});
 };
+
+//DELETE
+moviesController.deleteMovies = async (req, res) => {
+    await moviesModel.findOneAndDelete(req.params.id)
+    res.json({message:"movies deleted"})
+}
+ 
+//UPDATE
+moviesController.updateMovies = async (req, res) => {
+   //  Solicito todos los valores
+    const {title, description, movieDirector,gender, year, duration} = req.body;
+ 
+    await moviesModel.findByIdAndUpdate(req.params.id,{
+        title, description, movieDirector,gender, year, duration
+    },{new: true}
+);
+// muestro un mensaje que todo se actulizó
+res.json({ message: "movies uptated"});
+};
+
  
 
 export default moviesController;
